@@ -1,0 +1,26 @@
+:root {
+  --med-blue: rgb(94, 94, 248);
+  --off-white: rgb(240, 234, 234);
+}
+
+.header {
+  background-color: var(--med-blue);
+  color: var(--off-white);
+  text-align: center;
+}
+
+.btn-primary {
+  
+  padding: 6px;
+  color: var(--off-white);
+  text-transform: uppercase;
+  text-decoration: none;
+  background: var(--med-blue);
+  background-size: 500%;
+  /* background-color: var(--deep-green);
+  border-color: var(--deeper-green); */
+}
+
+.btn-primary:hover {
+  animation: animate 8s linear infinite;
+}

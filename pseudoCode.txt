@@ -1,0 +1,15 @@
+wesather dashboard
+
+user will type into the input filed and then clikd the search button
+--- need to capture input value
+---- event listener on search button
+---- get data from api
+once user clicks search display the current forecast and 5day forecast
+
+create a button with city's name
+
+when user clicks will show the relevant citys wesather
+
+store the weather results in local storage
+-- local storage is  api only string  (key value)
+
