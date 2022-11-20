@@ -26,5 +26,17 @@
 
 .daily {
   border: 2px solid;
- 
+}
+
+.card-deck {
+  
+}
+
+#fiveDayForcast {
+  height: 300px;
+  display: grid;
+  gap: 10px;
+  background-color: #2196f3;
+  padding: 10px;
+
 }
