@@ -19,7 +19,7 @@ function fetchCoordinates() {
     "&units=imperial" +
     "&appid=" +
     apiKey;
-  console.log(appId);
+  //console.log(appId);
   fetch(appId)
     .then(function (response) {
       return response.json();
@@ -31,7 +31,6 @@ function fetchCoordinates() {
     });
 }
 function fetchForecastWeather(lat, lon) {
-  console.log("inside fetchForecastWeather");
   let date = new Date();
   let month = date.getMonth();
   let day = date.getDate();
@@ -49,9 +48,15 @@ function fetchForecastWeather(lat, lon) {
       currentHumidity.text("Humidity: " + data.current.humidity);
       cityWeather.text(inputform.val() + "   " + fullDate);
       //displayForecastWeather(data.daily)
-      console.log(data.daily + "to pass to next");
+      fetch5dayforcast(data.daily);
     });
   });
+}
+function fetch5dayforcast(daily) {
+  // console.log(daily + "daily in fetch5dayforcast");
+  console.log(daily[0].temp.day);
+  //build out a loop to go through to build cards and populate with.
+  // fill with temp, wind, humidity
 }
 
 //function displayForecastWeather(5dayForcast) {

@@ -1,6 +1,7 @@
 :root {
   --med-blue: rgb(94, 94, 248);
   --off-white: rgb(240, 234, 234);
+  --dark-gray: rgb(78, 77, 77);
 }
 
 .header {
@@ -28,15 +29,7 @@
   border: 2px solid;
 }
 
-.card-deck {
-  
-}
-
-#fiveDayForcast {
-  height: 300px;
-  display: grid;
-  gap: 10px;
-  background-color: #2196f3;
-  padding: 10px;
-
+#card {
+  background-color: var(--dark-gray);
+  color: var(--off-white);
 }
