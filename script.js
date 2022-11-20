@@ -55,6 +55,8 @@ function fetchForecastWeather(lat, lon) {
 function fetch5dayforcast(daily) {
   // console.log(daily + "daily in fetch5dayforcast");
   console.log(daily[0].temp.day);
+  console.log(daily[0].wind_speed);
+  console.log(daily[0].humidity);
   //build out a loop to go through to build cards and populate with.
   // fill with temp, wind, humidity
 }
