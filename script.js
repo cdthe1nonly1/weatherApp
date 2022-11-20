@@ -5,16 +5,7 @@ var currentHumidity = $(".humidity");
 var currentWind = $(".wind");
 var currentuvi = $(".uvi");
 var apiKey = "8f19e18f6172630844fe7d562649fea0";
-//var city = ("#search-input");
-// var weatherAPI =
-//   "https://api.openweathermap.org/data/2.5/weather?lat=" +
-//   lat +
-//   "&lon=" +
-//   long +
-//   "&appid=" +
-//   apiKey +
-//   "&units=imperial";
-// console.log(weatherAPI);
+var cityWeather = $(".searchedCity");
 
 // functions
 
@@ -25,9 +16,9 @@ function fetchCoordinates() {
   var appId =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
+    "&units=imperial" +
     "&appid=" +
-    apiKey +
-    "&units=imperial";
+    apiKey;
   console.log(appId);
   fetch(appId)
     .then(function (response) {
@@ -41,17 +32,22 @@ function fetchCoordinates() {
 }
 function fetchForecastWeather(lat, lon) {
   console.log("inside fetchForecastWeather");
+  let date = new Date();
+  let month = date.getMonth();
+  let day = date.getDate();
+  let year = date.getFullYear();
+  let fullDate = `${month}/${day}/${year}`;
   // this is concatenaton of all elements needed to make api call
-  var searchUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  var searchUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
   // var apiCall = weatherapi + lat + long + "appID=" + apiKey
   //  console.log(apiCall)
   fetch(searchUrl).then(function (response) {
     return response.json().then(function (data) {
       console.log(data);
-      currentTemp.text(data.current.temp);
-      currentHumidity.text(data.current.humidity);
-      currentWind.text(data.current.wind_speed);
-      currentuvi.text(data.current.uvi);
+      currentTemp.text("Temp: " + data.current.temp);
+      currentWind.text("Wind " + data.current.wind_speed);
+      currentHumidity.text("Humidity: " + data.current.humidity);
+      cityWeather.text(inputform.val() + "   " + fullDate);
       //displayForecastWeather(data.daily)
       console.log(data.daily + "to pass to next");
     });
