@@ -1,17 +1,20 @@
 var inputform = $("#search-input");
 var searchButton = $("#search-btn");
-var lat = "33.44";
-var long = "94.04";
+var currentTemp = $(".temp");
+var currentHumidity = $(".humidity");
+var currentWind = $(".wind");
+var currentuvi = $(".uvi");
 var apiKey = "8f19e18f6172630844fe7d562649fea0";
 //var city = ("#search-input");
-var weatherAPI =
-  "https://api.openweathermap.org/data/2.5/weather?lat=" +
-  lat +
-  "&lon=" +
-  long +
-  "&appid=" +
-  apiKey;
-console.log(weatherAPI);
+// var weatherAPI =
+//   "https://api.openweathermap.org/data/2.5/weather?lat=" +
+//   lat +
+//   "&lon=" +
+//   long +
+//   "&appid=" +
+//   apiKey +
+//   "&units=imperial";
+// console.log(weatherAPI);
 
 // functions
 
@@ -24,7 +27,7 @@ function fetchCoordinates() {
     city +
     "&appid=" +
     apiKey +
-    "&units=standard";
+    "&units=imperial";
   console.log(appId);
   fetch(appId)
     .then(function (response) {
@@ -37,7 +40,7 @@ function fetchCoordinates() {
     });
 }
 function fetchForecastWeather(lat, lon) {
-  console.log('inside fetchForecastWeather');
+  console.log("inside fetchForecastWeather");
   // this is concatenaton of all elements needed to make api call
   var searchUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
   // var apiCall = weatherapi + lat + long + "appID=" + apiKey
@@ -45,8 +48,12 @@ function fetchForecastWeather(lat, lon) {
   fetch(searchUrl).then(function (response) {
     return response.json().then(function (data) {
       console.log(data);
-//displayForecastWeather(data.daily)
-console.log(data.daily + "to pass to next")
+      currentTemp.text(data.current.temp);
+      currentHumidity.text(data.current.humidity);
+      currentWind.text(data.current.wind_speed);
+      currentuvi.text(data.current.uvi);
+      //displayForecastWeather(data.daily)
+      console.log(data.daily + "to pass to next");
     });
   });
 }
