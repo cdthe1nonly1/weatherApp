@@ -1,3 +1,4 @@
+// Variables
 var inputform = $("#search-input");
 var searchButton = $("#search-btn");
 var currentTemp = $(".temp");
@@ -9,7 +10,7 @@ var cityWeather = $(".searchedCity");
 
 // functions
 
-// fetch tis repsonsible for makiking api call with user search term
+// search for lat and long based off city name
 function fetchCoordinates() {
   var city = inputform.val();
   //console.log(city);
@@ -19,7 +20,7 @@ function fetchCoordinates() {
     "&units=imperial" +
     "&appid=" +
     apiKey;
-  //console.log(appId);
+  // fetch  api call with user search term
   fetch(appId)
     .then(function (response) {
       return response.json();
@@ -30,6 +31,7 @@ function fetchCoordinates() {
       fetchForecastWeather(data.coord.lat, data.coord.lon);
     });
 }
+//pulling in lat and lon seach api for data on that city
 function fetchForecastWeather(lat, lon) {
   let date = new Date();
   let month = date.getMonth();
@@ -38,8 +40,8 @@ function fetchForecastWeather(lat, lon) {
   let fullDate = `${month}/${day}/${year}`;
   // this is concatenaton of all elements needed to make api call
   var searchUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
-  // var apiCall = weatherapi + lat + long + "appID=" + apiKey
-  //  console.log(apiCall)
+
+  // returning current data to todays weather section
   fetch(searchUrl).then(function (response) {
     return response.json().then(function (data) {
       //console.log(data);
@@ -48,55 +50,33 @@ function fetchForecastWeather(lat, lon) {
       currentHumidity.text("Humidity: " + data.current.humidity);
       cityWeather.text(inputform.val() + "   " + fullDate);
       //displayForecastWeather(data.daily)
-      fetch5dayforcast(data.daily);
+      fetch5dayforcast(data.daily, fullDate);
     });
   });
 }
-function fetch5dayforcast(daily) {
-  // console.log(daily + "daily in fetch5dayforcast");
-  // console.log(daily[0].temp.day);
-  // console.log(daily[0].wind_speed);
-  // console.log(daily[0].humidity);
-
+// new function brining in daiy data for 5day forcase
+function fetch5dayforcast(daily, fullDate) {
+  // loop to pull in temp, humidity, and wind for 5 day forcast
   for (var i = 0; i < 5; i++) {
-    console.log(daily[i].temp.day);
+    // console.log(daily[i].temp.day);
 
     var card = `<div class="card" id="card">
                     <div class="card-body text-center">
-                      <p class="date1">${"Temp: " + daily[i].temp.day}</p>
-                       <p class="date1">${"Wind: " + daily[i].wind_speed}</p>
-                        <p class="date1">${"Humidity: " + daily[i].humidity}</p>
+                    
+                      <p class="temp">${"Temp: " + daily[i].temp.day}</p>
+                       <p class="wind">${"Wind: " + daily[i].wind_speed}</p>
+                        <p class="humidity">${
+                          "Humidity: " + daily[i].humidity
+                        }</p>
                     </div>
                   </div>`;
     $(".card-deck").append(card);
   }
-
-  //build out a loop to go through to build cards and populate with.
-  // fill with temp, wind, humidity
 }
 
-//function displayForecastWeather(5dayForcast) {
-//   for (var i = 0; i < data.length; i++) {}
-// }
+//eventlistener for search
 
-// //form submission capturing user input
-// function handleFormSubmit(e){
-//     e.preventDefault();
-//         var inut = inputform
-//     console.log(inputform)
-
-//     //make api call with search term and verif data is sent back
-//     fetchWeather(inputform)
-// }
-
-// //event listeners
-
-// userForm.addEventListener(handleFormSubmit)
-
-// //create empty array
-// //["austin", denver]
+$("#search-btn").on("click", fetchCoordinates);
 
 // localStorage.setItem('cities, value')
 // localStorage.getItem('cities')
-
-$("#search-btn").on("click", fetchCoordinates);
