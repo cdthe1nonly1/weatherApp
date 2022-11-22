@@ -12,7 +12,7 @@ var cityWeather = $(".searchedCity");
 // fetch tis repsonsible for makiking api call with user search term
 function fetchCoordinates() {
   var city = inputform.val();
-  console.log(city);
+  //console.log(city);
   var appId =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
@@ -26,7 +26,7 @@ function fetchCoordinates() {
     })
     .then(function (data) {
       // console.log(data);
-      console.log(data.coord.lat, data.coord.lon);
+      //console.log(data.coord.lat, data.coord.lon);
       fetchForecastWeather(data.coord.lat, data.coord.lon);
     });
 }
@@ -42,7 +42,7 @@ function fetchForecastWeather(lat, lon) {
   //  console.log(apiCall)
   fetch(searchUrl).then(function (response) {
     return response.json().then(function (data) {
-      console.log(data);
+      //console.log(data);
       currentTemp.text("Temp: " + data.current.temp);
       currentWind.text("Wind " + data.current.wind_speed);
       currentHumidity.text("Humidity: " + data.current.humidity);
@@ -54,9 +54,23 @@ function fetchForecastWeather(lat, lon) {
 }
 function fetch5dayforcast(daily) {
   // console.log(daily + "daily in fetch5dayforcast");
-  console.log(daily[0].temp.day);
-  console.log(daily[0].wind_speed);
-  console.log(daily[0].humidity);
+  // console.log(daily[0].temp.day);
+  // console.log(daily[0].wind_speed);
+  // console.log(daily[0].humidity);
+
+  for (var i = 0; i < 5; i++) {
+    console.log(daily[i].temp.day);
+
+    var card = `<div class="card" id="card">
+                    <div class="card-body text-center">
+                      <p class="date1">${"Temp: " + daily[i].temp.day}</p>
+                       <p class="date1">${"Wind: " + daily[i].wind_speed}</p>
+                        <p class="date1">${"Humidity: " + daily[i].humidity}</p>
+                    </div>
+                  </div>`;
+    $(".card-deck").append(card);
+  }
+
   //build out a loop to go through to build cards and populate with.
   // fill with temp, wind, humidity
 }
