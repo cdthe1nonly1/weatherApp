@@ -33,3 +33,11 @@
   background-color: var(--dark-gray);
   color: var(--off-white);
 }
+
+#lastSearchButtons {
+  padding: 6px;
+  color: var(--off-white);
+  text-transform: uppercase;
+  text-decoration: none;
+  background: var(--med-blue);
+}

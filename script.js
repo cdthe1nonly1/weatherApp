@@ -1,4 +1,5 @@
 // Variables
+var lastFive = [];
 var inputform = $("#search-input");
 var searchButton = $("#search-btn");
 var currentTemp = $(".temp");
@@ -7,6 +8,7 @@ var currentWind = $(".wind");
 var currentuvi = $(".uvi");
 var apiKey = "8f19e18f6172630844fe7d562649fea0";
 var cityWeather = $(".searchedCity");
+var resultsButtons = $("#results-buttons");
 
 // functions
 
@@ -20,6 +22,7 @@ function fetchCoordinates() {
     "&units=imperial" +
     "&appid=" +
     apiKey;
+  console.log(appId);
   // fetch  api call with user search term
   fetch(appId)
     .then(function (response) {
@@ -57,7 +60,8 @@ function fetchForecastWeather(lat, lon) {
 // new function brining in daiy data for 5day forcase
 function fetch5dayforcast(daily, fullDate) {
   // loop to pull in temp, humidity, and wind for 5 day forcast
-  for (var i = 0; i < 5; i++) {
+
+  for (let i = 0; i < daily.length && i < 5; i++) {
     // console.log(daily[i].temp.day);
 
     var card = `<div class="card" id="card">
@@ -78,5 +82,25 @@ function fetch5dayforcast(daily, fullDate) {
 
 $("#search-btn").on("click", fetchCoordinates);
 
-// localStorage.setItem('cities, value')
-// localStorage.getItem('cities')
+searchButton.on("click", function () {
+  resultsButtons.html("");
+  console.log(lastFive.length);
+  lastFive.push($("#search-input").val());
+
+  localStorage.setItem("previousSearches", lastFive);
+  for (i = 0; i < lastFive.length; i++) {
+    if (lastFive.length > 4) {
+      lastFive.splice(i, 1);
+    }
+  }
+
+  console.log(lastFive);
+
+  $("#lastSearchButtons").empty();
+  for (i = 0; i < lastFive.length; i++) {
+    var button = document.createElement("button");
+    button.textContent = lastFive[i];
+    $("#lastSearchButtons").append(button);
+    button.setAttribute("onclick", `fetchCoordinates("${lastFive[i]}")`);
+  }
+});
