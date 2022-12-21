@@ -13,9 +13,9 @@ var resultsButtons = $("#results-buttons");
 // functions
 
 // search for lat and long based off city name
-function fetchCoordinates() {
-  var city = inputform.val();
-  //console.log(city);
+function fetchCoordinates(value) {
+  var city = inputform.val() || value;
+  console.log(city);
   var appId =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
@@ -60,7 +60,7 @@ function fetchForecastWeather(lat, lon) {
 // new function brining in daiy data for 5day forcase
 function fetch5dayforcast(daily, fullDate) {
   // loop to pull in temp, humidity, and wind for 5 day forcast
-
+  $(".card-deck").empty();
   for (let i = 0; i < daily.length && i < 5; i++) {
     // console.log(daily[i].temp.day);
 
@@ -99,8 +99,12 @@ searchButton.on("click", function () {
   $("#lastSearchButtons").empty();
   for (i = 0; i < lastFive.length; i++) {
     var button = document.createElement("button");
+    //button.addClass("btn")
     button.textContent = lastFive[i];
     $("#lastSearchButtons").append(button);
-    button.setAttribute("onclick", `fetchCoordinates("${lastFive[i]}")`);
+    button.click(function () {
+      fetchCoordinates(`${lastFive[i]}`);
+    });
+    button.setAttribute("class", "btn");
   }
 });
