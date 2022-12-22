@@ -2,6 +2,7 @@
   --med-blue: rgb(94, 94, 248);
   --off-white: rgb(240, 234, 234);
   --dark-gray: rgb(78, 77, 77);
+  --light-blue: rgb(170, 170, 240);
 }
 
 .header {
@@ -17,12 +18,21 @@
   text-decoration: none;
   background: var(--med-blue);
   background-size: 500%;
-  /* background-color: var(--deep-green);
-  border-color: var(--deeper-green); */
+
 }
 
 .btn-primary:hover {
   animation: animate 8s linear infinite;
+}
+
+.btn {
+  padding: 6px;
+  color: var(--dark-gray);
+  text-transform: uppercase;
+  text-decoration: none;
+  background: var(--med-blue);
+  border:2px
+
 }
 
 .daily {
@@ -34,10 +44,3 @@
   color: var(--off-white);
 }
 
-#lastSearchButtons {
-  padding: 6px;
-  color: var(--off-white);
-  text-transform: uppercase;
-  text-decoration: none;
-  background: var(--med-blue);
-}

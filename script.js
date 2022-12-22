@@ -1,5 +1,5 @@
 // Variables
-var lastFive = [];
+var lastFive = JSON.parse(localStorage.getItem("previousSearches")) || [];
 var inputform = $("#search-input");
 var searchButton = $("#search-btn");
 var currentTemp = $(".temp");
@@ -82,12 +82,12 @@ function fetch5dayforcast(daily, fullDate) {
 
 $("#search-btn").on("click", fetchCoordinates);
 
-searchButton.on("click", function () {
+function searchHistory() {
   resultsButtons.html("");
   console.log(lastFive.length);
   lastFive.push($("#search-input").val());
 
-  localStorage.setItem("previousSearches", lastFive);
+  localStorage.setItem("previousSearches", JSON.stringify(lastFive));
   for (i = 0; i < lastFive.length; i++) {
     if (lastFive.length > 4) {
       lastFive.splice(i, 1);
@@ -107,4 +107,11 @@ searchButton.on("click", function () {
     });
     button.setAttribute("class", "btn");
   }
+}
+// sets the onclick function
+searchButton.on("click", function () {
+searchHistory();
+ 
 });
+//calls search history
+searchHistory();
