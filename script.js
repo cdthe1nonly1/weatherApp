@@ -49,11 +49,12 @@ function fetchForecastWeather(lat, lon) {
 	// returning current data to todays weather section
 	fetch(searchUrl).then(function (response) {
 		return response.json().then(function (data) {
-			//console.log(data);
+			console.log(data);
 			currentTemp.text("Temp: " + data.current.temp);
 			currentWind.text("Wind " + data.current.wind_speed);
 			currentHumidity.text("Humidity: " + data.current.humidity);
-			cityWeather.text(inputform.val() + "   " + fullDate);
+			//cityWeather.text(inputform.val() + "   " + fullDate);
+			cityWeather.text(data.timezone + " " + " " + " " + fullDate);
 			//displayForecastWeather(data.daily)
 			fetch5dayforcast(data.daily, fullDate);
 		});
@@ -81,7 +82,9 @@ function fetch5dayforcast(daily, fullDate) {
 //eventlistener for search
 searchButton.on("click", function () {
 	fetchCoordinates(inputform.val());
+	//document.getElementById('search-input').value = " ";
 });
+
 
 function searchHistory() {
 	resultsButtons.html("");
@@ -103,6 +106,8 @@ function searchHistory() {
 		button.on("click", function () {
 			// this snags varible for valule.  Brings city in and sets it as value
 			fetchCoordinates($(this).val());
+			//console.log(($(this).val())
+			//console.log
 		});
 		$("#lastSearchButtons").append(button);
 	}

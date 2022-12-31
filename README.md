@@ -21,6 +21,6 @@ link to page:
 
 Used to check the five day forcast.
 
-## license
+## License
 
 None
