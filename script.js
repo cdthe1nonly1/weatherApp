@@ -11,7 +11,7 @@ var cityWeather = $(".searchedCity");
 var resultsButtons = $("#results-buttons");
 // functions
 
-// search for lat and long based off city name
+// search for lat and long based off city name 
 function fetchCoordinates(value) {
 	var city = inputform.val();
 	if (city === "") {
@@ -85,14 +85,14 @@ searchButton.on("click", function () {
 
 function searchHistory() {
 	resultsButtons.html("");
-
+// pulls up the last five previous serches
 	localStorage.setItem("previousSearches", JSON.stringify(lastFive));
 	for (i = 0; i < lastFive.length; i++) {
 		if (lastFive.length > 5) {
 			lastFive.splice(i, 1);
 		}
 	}
-
+//loops through to 
 	$("#lastSearchButtons").empty();
 	for (i = 0; i < lastFive.length; i++) {
 		var button = $("<button>");
@@ -101,7 +101,7 @@ function searchHistory() {
 		button.attr("id", lastFive[i]);
 		button.html(lastFive[i]);
 		button.on("click", function () {
-			// this snags varible for val that declared on 100.  Brings city in and sets it as value
+			// this snags varible for valule.  Brings city in and sets it as value
 			fetchCoordinates($(this).val());
 		});
 		$("#lastSearchButtons").append(button);
